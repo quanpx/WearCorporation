@@ -1,10 +1,10 @@
-package com.example.demo.service.impl;
+package com.example.demo.service.product.impl;
 
-import com.example.demo.bean.ProductBean;
-import com.example.demo.dto.ProductDetailDTO;
-import com.example.demo.mapping.ProductMapping;
-import com.example.demo.proxies.ProductWebServiceProxy;
-import com.example.demo.service.ProductService;
+import com.example.demo.bean.product.sp17.SP17ResponseBean;
+import com.example.demo.dto.product.ProductDetailDTO;
+import com.example.demo.mapping.product.ProductMapping;
+import com.example.demo.proxies.product.ProductWebServiceProxy;
+import com.example.demo.service.product.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -23,8 +23,9 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public ProductDetailDTO getProductDetailDTOById(Long productId) {
-        ProductBean productBean = this.productWebServiceProxy.findById(productId);
+        SP17ResponseBean responseBean = this.productWebServiceProxy.findById(productId);
 
-        return this.productMapping.beanToDetailDTO(productBean);
+        return responseBean.isSuccess() ?
+                this.productMapping.detailBeanToDetailDTO(responseBean.getData()) : null;
     }
 }

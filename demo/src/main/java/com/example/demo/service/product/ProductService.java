@@ -1,6 +1,6 @@
-package com.example.demo.service;
+package com.example.demo.service.product;
 
-import com.example.demo.dto.ProductDetailDTO;
+import com.example.demo.dto.product.ProductDetailDTO;
 
 public interface ProductService {
 

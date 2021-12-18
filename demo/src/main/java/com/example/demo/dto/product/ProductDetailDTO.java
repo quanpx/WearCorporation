@@ -1,15 +1,17 @@
-package com.example.demo.bean;
+package com.example.demo.dto.product;
 
 import lombok.Data;
 
 import java.util.List;
 
 @Data
-public class ProductBean {
+public class ProductDetailDTO {
 
     private Long id;
 
     private String name;
+
+    private String description;
 
     private String imageUrl;
 
