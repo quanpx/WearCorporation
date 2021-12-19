@@ -1,10 +1,10 @@
-package com.example.demo.service.impl;
+package com.example.demo.service.user.impl;
 
 import com.example.demo.bean.UserBean;
 import com.example.demo.dto.UserDTO;
 import com.example.demo.mapping.UserMapping;
 import com.example.demo.proxies.UserWebServiceProxy;
-import com.example.demo.service.UserService;
+import com.example.demo.service.user.UserService;
 
 public class UserServiceImpl implements UserService {
 

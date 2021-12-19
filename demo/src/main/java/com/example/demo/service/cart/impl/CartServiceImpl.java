@@ -1,14 +1,13 @@
-package com.example.demo.service.impl;
+package com.example.demo.service.cart.impl;
 
 import com.example.demo.bean.CartBean;
 import com.example.demo.dto.CartDTO;
 import com.example.demo.mapping.CartMapping;
 import com.example.demo.proxies.CartWebServiceProxy;
-import com.example.demo.service.CartService;
+import com.example.demo.service.cart.CartService;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-import org.springframework.stereotype.Service;
 
 @Component
 public class CartServiceImpl implements CartService{
