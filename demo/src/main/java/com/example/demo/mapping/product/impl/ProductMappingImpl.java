@@ -1,6 +1,5 @@
 package com.example.demo.mapping.product.impl;
 
-
 import com.example.demo.bean.sp02.product.SP02ProductDetailBean;
 import com.example.demo.bean.sp17.category.SP17CategoryBriefBean;
 import com.example.demo.bean.sp17.product.SP17ProductBriefBean;

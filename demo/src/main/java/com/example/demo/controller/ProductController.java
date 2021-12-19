@@ -6,7 +6,6 @@ import com.example.demo.dto.product.ProductBriefDTO;
 import com.example.demo.dto.product.ProductDetailDTO;
 import com.example.demo.service.product.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;

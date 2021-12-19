@@ -21,4 +21,5 @@ public interface ProductMapping {
 
     ProductBriefDTO detailBeanToBriefDTO(SP02ProductDetailBean bean);
     List<ProductBriefDTO> detailBeansToBriefDTOs(List<SP02ProductDetailBean> detailBeanList);
+
 }
