@@ -1,8 +1,11 @@
 package com.example.demo.mapping.product.impl;
 
 
-import com.example.demo.bean.product.sp17.SP17ProductBriefBean;
-import com.example.demo.bean.product.sp17.SP17ProductDetailBean;
+import com.example.demo.bean.sp02.product.SP02ProductDetailBean;
+import com.example.demo.bean.sp17.category.SP17CategoryBriefBean;
+import com.example.demo.bean.sp17.product.SP17ProductBriefBean;
+import com.example.demo.bean.sp17.product.SP17ProductDetailBean;
+import com.example.demo.dto.category.CategoryBriefDTO;
 import com.example.demo.dto.product.ProductBriefDTO;
 import com.example.demo.dto.product.ProductDetailDTO;
 import com.example.demo.mapping.product.ProductMapping;
@@ -64,5 +67,62 @@ public class ProductMappingImpl implements ProductMapping {
         detailDTO.setDescription(detailBean.getDetail());
 
         return detailDTO;
+    }
+
+    @Override
+    public ProductDetailDTO detailBeanToDetailDTO(SP02ProductDetailBean bean) {
+        return bean == null ? null : this.objectMapper.convertValue(bean, ProductDetailDTO.class);
+    }
+
+    @Override
+    public CategoryBriefDTO categoryBriefBeanToCategoryBriefDTO(HashMap<String, Object> briefData) {
+        if (briefData == null) return null;
+
+        SP17CategoryBriefBean categoryBriefBean =
+                this.objectMapper.convertValue(briefData, SP17CategoryBriefBean.class);
+        CategoryBriefDTO categoryBriefDTO = new CategoryBriefDTO();
+
+        categoryBriefDTO.setId(categoryBriefBean.getId());
+        categoryBriefDTO.setName(categoryBriefBean.getName());
+        categoryBriefDTO.setDescription(categoryBriefBean.getDescription());
+        categoryBriefDTO.setTax(categoryBriefBean.getTax());
+        categoryBriefDTO.setUnit(categoryBriefBean.getUnit());
+
+        return categoryBriefDTO;
+    }
+
+    @Override
+    public List<CategoryBriefDTO> categoryBriefBeansToCategoryBriefDTO(
+            List<HashMap<String, Object>> briefDataList) {
+        if (briefDataList == null) return null;
+        List<CategoryBriefDTO> categoryBriefDTOList = new LinkedList<>();
+
+        briefDataList.forEach(briefData -> categoryBriefDTOList.add(
+                this.categoryBriefBeanToCategoryBriefDTO(briefData)));
+
+        return categoryBriefDTOList;
+    }
+
+    @Override
+    public ProductBriefDTO detailBeanToBriefDTO(SP02ProductDetailBean bean) {
+        if (bean == null) return null;
+        ProductBriefDTO dto = new ProductBriefDTO();
+
+        dto.setId(bean.getId());
+        dto.setName(bean.getName());
+        dto.setPrice(bean.getPrice());
+        dto.setImageUrl(bean.getImageUrl());
+
+        return dto;
+    }
+
+    @Override
+    public List<ProductBriefDTO> detailBeansToBriefDTOs(List<SP02ProductDetailBean> detailBeanList) {
+        if (detailBeanList == null) return null;
+        List<ProductBriefDTO> dtoList = new LinkedList<>();
+
+        detailBeanList.forEach(detailBean -> dtoList.add(this.detailBeanToBriefDTO(detailBean)));
+
+        return dtoList;
     }
 }

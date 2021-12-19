@@ -1,18 +1,16 @@
-package com.example.demo.bean.product.sp17;
+package com.example.demo.bean.sp17;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
 
-import java.util.HashMap;
-
 @Data
-public class SP17ResponseBean {
+public class SP17ResponseBean<T> {
 
     @JsonProperty("success")
     private boolean isSuccess;
 
     @JsonProperty("data")
-    private HashMap<String, Object> data;
+    private T data;
 
     @JsonProperty("message")
     private String message;
