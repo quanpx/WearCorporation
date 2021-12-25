@@ -1,6 +1,6 @@
 package com.example.demo.controller;
 
-import com.example.demo.config.product.ProductModuleConfig;
+import com.example.demo.config.ModuleConfig;
 import com.example.demo.dto.category.CategoryBriefDTO;
 import com.example.demo.dto.product.ProductBriefDTO;
 import com.example.demo.dto.product.ProductDetailDTO;
@@ -17,22 +17,18 @@ import java.util.Map;
 
 @Controller
 @RequestMapping("/products")
-public class ProductController {
+public class ProductController extends BaseController {
 
     private final Map<String, ProductService> productServiceMap;
 
-    private final ProductModuleConfig productModuleConfig;
-
     @Autowired
-    public ProductController(Map<String, ProductService> productServiceMap,
-                             ProductModuleConfig productModuleConfig) {
+    public ProductController(Map<String, ProductService> productServiceMap) {
         this.productServiceMap = productServiceMap;
-        this.productModuleConfig = productModuleConfig;
     }
 
     @GetMapping
     public String displayProductList(Model model) {
-        ProductService productService = this.productServiceMap.get(this.productModuleConfig.getTeam());
+        ProductService productService = this.productServiceMap.get(this.moduleConfig.getProductTeam());
         List<ProductBriefDTO> productBriefDTOList = productService.getAllProductBriefDTO();
         List<CategoryBriefDTO> categoryBriefDTOList = productService.getAllCategories();
 
@@ -44,7 +40,7 @@ public class ProductController {
 
     @GetMapping("/{id}")
     public String displayProductDetail(@PathVariable Long id, Model model) {
-        ProductService productService = this.productServiceMap.get(this.productModuleConfig.getTeam());
+        ProductService productService = this.productServiceMap.get(this.moduleConfig.getProductTeam());
         ProductDetailDTO productDetailDTO = productService.getProductDetailDTOById(id);
 
         model.addAttribute("product", productDetailDTO);

@@ -1,6 +1,6 @@
 package com.example.demo.proxies.product;
 
-import com.example.demo.bean.product.sp17.SP17ResponseBean;
+import com.example.demo.bean.sp17.SP17ResponseBean;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
