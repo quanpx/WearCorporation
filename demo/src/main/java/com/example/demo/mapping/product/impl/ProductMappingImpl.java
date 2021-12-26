@@ -1,9 +1,9 @@
 package com.example.demo.mapping.product.impl;
 
 import com.example.demo.bean.sp02.product.SP02ProductDetailBean;
-import com.example.demo.bean.sp17.category.SP17CategoryBriefBean;
-import com.example.demo.bean.sp17.product.SP17ProductBriefBean;
-import com.example.demo.bean.sp17.product.SP17ProductDetailBean;
+import com.example.demo.bean.sp11.category.SP11CategoryBriefBean;
+import com.example.demo.bean.sp11.product.SP11ProductBriefBean;
+import com.example.demo.bean.sp11.product.SP11ProductDetailBean;
 import com.example.demo.dto.category.CategoryBriefDTO;
 import com.example.demo.dto.product.ProductBriefDTO;
 import com.example.demo.dto.product.ProductDetailDTO;
@@ -30,7 +30,7 @@ public class ProductMappingImpl implements ProductMapping {
     public ProductBriefDTO briefBeanToBriefDTO(HashMap<String, Object> briefData) {
         if (briefData == null) return null;
 
-        SP17ProductBriefBean briefBean = this.objectMapper.convertValue(briefData, SP17ProductBriefBean.class);
+        SP11ProductBriefBean briefBean = this.objectMapper.convertValue(briefData, SP11ProductBriefBean.class);
         ProductBriefDTO briefDTO = new ProductBriefDTO();
 
         briefDTO.setImageUrl(briefBean.getMainImageUrl());
@@ -55,7 +55,7 @@ public class ProductMappingImpl implements ProductMapping {
     public ProductDetailDTO detailBeanToDetailDTO(HashMap<String, Object> detailData) {
         if (detailData == null) return null;
 
-        SP17ProductDetailBean detailBean = this.objectMapper.convertValue(detailData, SP17ProductDetailBean.class);
+        SP11ProductDetailBean detailBean = this.objectMapper.convertValue(detailData, SP11ProductDetailBean.class);
         ProductDetailDTO detailDTO = new ProductDetailDTO();
 
         detailDTO.setBrand(detailBean.getBrand());
@@ -77,8 +77,8 @@ public class ProductMappingImpl implements ProductMapping {
     public CategoryBriefDTO categoryBriefBeanToCategoryBriefDTO(HashMap<String, Object> briefData) {
         if (briefData == null) return null;
 
-        SP17CategoryBriefBean categoryBriefBean =
-                this.objectMapper.convertValue(briefData, SP17CategoryBriefBean.class);
+        SP11CategoryBriefBean categoryBriefBean =
+                this.objectMapper.convertValue(briefData, SP11CategoryBriefBean.class);
         CategoryBriefDTO categoryBriefDTO = new CategoryBriefDTO();
 
         categoryBriefDTO.setId(categoryBriefBean.getId());

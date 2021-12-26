@@ -1,6 +1,5 @@
 package com.example.demo.controller;
 
-import com.example.demo.config.ModuleConfig;
 import com.example.demo.dto.category.CategoryBriefDTO;
 import com.example.demo.dto.product.ProductBriefDTO;
 import com.example.demo.dto.product.ProductDetailDTO;
