@@ -15,5 +15,11 @@ public class UserMappingImpl implements UserMapping {
         // TODO Auto-generated method stub
         return new UserDTO();
     }
+
+    @Override
+    public com.example.demo.mapping.UserDTO beanToUserDTO(com.example.demo.mapping.UserBean user) {
+        // TODO Auto-generated method stub
+        return null;
+    }
     
 }

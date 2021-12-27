@@ -1,10 +1,9 @@
 package com.example.demo.mapping;
 
-
-import com.example.demo.bean.user.SP08ResponeBean;
-import com.example.demo.dto.user.UserDTO;
+import com.example.demo.bean.UserBean;
+import com.example.demo.dto.UserDTO;
 
 
 public interface UserMapping {
- UserDTO beanToUserDTO(SP08ResponeBean responeBean);   
+ UserDTO beanToUserDTO(UserBean user);   
 }
