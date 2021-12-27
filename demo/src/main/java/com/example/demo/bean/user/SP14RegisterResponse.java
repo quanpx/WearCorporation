@@ -8,6 +8,7 @@ import lombok.Data;
 
 @Data
 public class SP14RegisterResponse {
+    
     @JsonProperty("token")
    private String token;
    @JsonProperty("user")

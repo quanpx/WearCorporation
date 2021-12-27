@@ -3,7 +3,7 @@
 <head th:replace="fragments/head :: head(title='Home page')"></head>
 
 <body>
-	<div th:replace="fragments/header :: header"></div>
+	<div th:replace="fragments/header :: header(userModel=${userModel})"></div>
 	
 	<section id="slider"><!--slider-->
 		<div class="container">

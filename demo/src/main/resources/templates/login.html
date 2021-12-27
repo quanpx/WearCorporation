@@ -1,14 +1,8 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
-<<<<<<< HEAD
-
-<head th:replace="fragments/head :: head(title='Product detail')"></head>
-
-=======
 <head th:replace="fragments/head :: head(title='Login')"></head>
->>>>>>> 0229687de82a27557f3097ffa752f851925ca0db
 <body>
-	<div th:replace="fragments/header :: header"></div>
+	<div th:replace="fragments/header :: header(userModel=${userModel})"></div>
 
 	<section id="form">
 		<!--form-->
@@ -18,7 +12,7 @@
 					<div class="login-form">
 						<!--login form-->
 						<h2>Login to your account</h2>
-						<form action ="#" th:action="@{/login}" method="post" th:object="${loginModel}">
+						<form action ="#" th:action="@{${action}}" method="post" th:object="${userModel}">
 							<input type="text" placeholder="Username" th:field="*{username}" />
 							<input type="password" placeholder="Password" th:field="*{password}" />
 							<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" /> 
@@ -34,10 +28,10 @@
 					<div class="signup-form">
 						<!--sign up form-->
 						<h2>New User Signup!</h2>
-						<form action="#" th:action="@{/register}" th:object="${registerModel}" method="post">
+						<form action="#" th:action="@{account/register}" th:object="${userModel}" method="post">
 							<input type="text" placeholder="Username" th:field="*{username}" />
 							<input type="password" placeholder="Password" th:field="*{password}"/>
-							<input type="password" placeholder="Comfirm Password" th:field="*{password_confirmation}"/>
+							<input type="password" placeholder="Comfirm Password" th:field="*{passwordConfirmation}"/>
 							<input type="email" placeholder="Email" th:field="*{email}"/>
 							<input type="text" placeholder="Phone" th:field="*{phone}" />
 							<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" /> 
@@ -48,19 +42,9 @@
 				</div>
 			</div>
 		</div>
-<<<<<<< HEAD
-	</section>
-	<!--/form-->
-
-
-
-
-	<div th:replace="fragments/footer :: footer"></div>
-=======
 	</section><!--/form-->
 
     <div th:replace="fragments/footer :: footer"></div>
->>>>>>> 0229687de82a27557f3097ffa752f851925ca0db
 	<div th:replace="fragments/js-script-container"></div>
 </body>
 
