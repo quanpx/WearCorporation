@@ -1,48 +1,57 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
+
 <head th:replace="fragments/head :: head(title='Product detail')"></head>
+
 <body>
 	<div th:replace="fragments/header :: header"></div>
-	
-	<section id="form"><!--form-->
+
+	<section id="form">
+		<!--form-->
 		<div class="container">
 			<div class="row">
 				<div class="col-sm-4 col-sm-offset-1">
-					<div class="login-form"><!--login form-->
+					<div class="login-form">
+						<!--login form-->
 						<h2>Login to your account</h2>
-						<form action="/login" method="Post">
-							<input type="text" placeholder="Name" />
-							<input type="email" placeholder="Email Address" />
-							<span>
-								<input type="checkbox" class="checkbox"> 
-								Keep me signed in
-							</span>
+						<form action ="#" th:action="@{/login}" method="post" th:object="${loginModel}">
+							<input type="text" placeholder="Username" th:field="*{username}" />
+							<input type="password" placeholder="Password" th:field="*{password}" />
+							<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" /> 
 							<button type="submit" class="btn btn-default">Login</button>
 						</form>
-					</div><!--/login form-->
+					</div>
+					<!--/login form-->
 				</div>
 				<div class="col-sm-1">
 					<h2 class="or">OR</h2>
 				</div>
 				<div class="col-sm-4">
-					<div class="signup-form"><!--sign up form-->
+					<div class="signup-form">
+						<!--sign up form-->
 						<h2>New User Signup!</h2>
-						<form action="#">
-							<input type="text" placeholder="Name"/>
-							<input type="email" placeholder="Email Address"/>
-							<input type="password" placeholder="Password"/>
+						<form action="#" th:action="@{/register}" th:object="${registerModel}" method="post">
+							<input type="text" placeholder="Username" th:field="*{username}" />
+							<input type="password" placeholder="Password" th:field="*{password}"/>
+							<input type="password" placeholder="Comfirm Password" th:field="*{password_confirmation}"/>
+							<input type="email" placeholder="Email" th:field="*{email}"/>
+							<input type="text" placeholder="Phone" th:field="*{phone}" />
+							<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" /> 
 							<button type="submit" class="btn btn-default">Signup</button>
 						</form>
-					</div><!--/sign up form-->
+					</div>
+					<!--/sign up form-->
 				</div>
 			</div>
 		</div>
-	</section><!--/form-->
-	
-	
-	
-  
-    <div th:replace="fragments/footer :: footer"></div>
+	</section>
+	<!--/form-->
+
+
+
+
+	<div th:replace="fragments/footer :: footer"></div>
 	<div th:replace="fragments/js-script-container"></div>
 </body>
+
 </html>

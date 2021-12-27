@@ -14,5 +14,4 @@ public interface ProductWebServiceProxy {
 
     @GetMapping("/products/{id}")
     SP17ResponseBean findById(@PathVariable Long id);
-
 }
