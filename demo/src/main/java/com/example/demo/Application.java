@@ -10,7 +10,7 @@ import org.springframework.web.client.RestTemplate;
 import java.time.Duration;
 
 @SpringBootApplication
-@EnableFeignClients("com.example.demo.proxies")
+@EnableFeignClients("com.example.demo")
 public class Application {
 
 	public static void main(String[] args) {

@@ -2,7 +2,6 @@ package com.example.demo.service.user.impl;
 
 import javax.servlet.http.HttpServletRequest;
 
-import com.example.demo.bean.UserBean;
 import com.example.demo.bean.user.SP08ResponeBean;
 import com.example.demo.bean.user.SP14LoginRespone;
 import com.example.demo.bean.user.SP14RegisterResponse;

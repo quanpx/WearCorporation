@@ -1,6 +1,6 @@
 package com.example.demo.mapping;
 
-import com.example.demo.bean.UserBean;
+
 import com.example.demo.bean.user.SP08ResponeBean;
 import com.example.demo.dto.user.UserDTO;
 
