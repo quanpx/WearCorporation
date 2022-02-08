@@ -19,4 +19,9 @@ public class CustomerCareServiceSP06Impl implements CustomerCareService {
     public String sendFeedback(FeedbackDTO feedbackDTO) {
         return null;
     }
+
+    @Override
+    public String sendComment(ProductReviewDTO productReviewDTO) {
+        return null;
+    }
 }

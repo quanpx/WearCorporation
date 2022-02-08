@@ -14,10 +14,8 @@ import com.example.demo.module.product.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.ModelAndView;
 
 import java.util.HashMap;
 import java.util.List;
@@ -98,7 +96,9 @@ public class ShopController {
         model.addAttribute("notice", null);
         model.addAttribute("relatedProductList", relatedProductList.size() > 4 ?
                 relatedProductList.subList(0, 4) : relatedProductList);
-
+        ProductReviewDTO productReviewDTO = new ProductReviewDTO();
+        productReviewDTO.setProductId(id);
+        model.addAttribute("comment", productReviewDTO);
         ProductCartAddFormDTO productCart= new ProductCartAddFormDTO();
         productCart.setImageUrl(productDetailDTO.getImageUrl());
         productCart.setId(productDetailDTO.getId());
@@ -107,6 +107,20 @@ public class ShopController {
         model.addAttribute("productCartForm", productCart);
 
         return "product-detail";
+    }
+
+    @PostMapping("/{id}/comment")
+    public String sendComment(@PathVariable Integer id, @ModelAttribute("comment") ProductReviewDTO productReviewDTO, Model model)
+    {
+        if (currentAccount.getRole() == AccountRoleDTO.GUEST_ROLE)
+            return "redirect:/account/login";
+
+        CustomerCareService customerCareService=customerCareServiceMap.get(moduleConfig.getCustomerCareTeam());
+        productReviewDTO.setProductId(id);
+        String message=customerCareService.sendComment(productReviewDTO);
+//        String message = productReviewDTO.getContent();
+        System.out.println(message);
+        return getProductDetailById(id, model);
     }
 
 }

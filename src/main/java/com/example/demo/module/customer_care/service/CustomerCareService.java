@@ -11,4 +11,6 @@ public interface CustomerCareService {
     List<ProductReviewDTO> getAllProductReviewByProductId(Integer productId);
 
     String sendFeedback(FeedbackDTO feedbackDTO);
+
+    String sendComment(ProductReviewDTO productReviewDTO);
 }

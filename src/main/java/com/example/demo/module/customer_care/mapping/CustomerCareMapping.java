@@ -10,4 +10,6 @@ public interface CustomerCareMapping {
     ProductReviewDTO commentBeanToReviewDTO(SP21ProductCommentBean commentBean);
 
     SP21FeedBackBean feedBackDtoToBean(FeedbackDTO feedbackDTO);
+
+    SP21ProductCommentBean commentDtoToBean(ProductReviewDTO productReviewDTO);
 }

@@ -34,4 +34,11 @@ public class CustomerCareMappingImpl implements CustomerCareMapping {
         sp21FeedBackBean.setContent(feedbackDTO.getContent());
         return sp21FeedBackBean;
     }
+
+    @Override
+    public SP21ProductCommentBean commentDtoToBean(ProductReviewDTO productReviewDTO) {
+        SP21ProductCommentBean sp21ProductCommentBean = new SP21ProductCommentBean();
+        sp21ProductCommentBean.setComment((productReviewDTO.getContent()));
+        return sp21ProductCommentBean;
+    }
 }

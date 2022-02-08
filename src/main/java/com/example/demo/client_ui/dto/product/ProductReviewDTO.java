@@ -11,6 +11,8 @@ public class ProductReviewDTO {
 
     private Integer reviewId;
 
+    private Integer productId;
+
     private Integer userId;
 
     private String userName;
