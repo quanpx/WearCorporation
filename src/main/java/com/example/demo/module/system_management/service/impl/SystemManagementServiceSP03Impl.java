@@ -58,8 +58,8 @@ public class SystemManagementServiceSP03Impl implements SystemManagementService 
              if (configBean.getRole() == 1) return AccountRoleDTO.SALESMAN;
              if (configBean.getRole() == 2) return AccountRoleDTO.IT_TECHNICIAN;
              if (configBean.getRole() == 3) return AccountRoleDTO.SHIPPING_MANAGER;
-         } catch (Exception ignore) {
-             log.error(ignore.getMessage(), ignore.getCause());
+         } catch (Exception e) {
+             log.error(e.getMessage(), e.getCause());
              return AccountRoleDTO.GUEST_ROLE;
          }
          return AccountRoleDTO.GUEST_ROLE;

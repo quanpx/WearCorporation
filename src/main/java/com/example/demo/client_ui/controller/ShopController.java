@@ -96,6 +96,8 @@ public class ShopController {
         model.addAttribute("quantity",
                 inventoryService.getProductQuantityInInventory(productDetailDTO.getId(), null));
         model.addAttribute("notice", null);
+        model.addAttribute("relatedProductList", relatedProductList.size() > 4 ?
+                relatedProductList.subList(0, 4) : relatedProductList);
 
         ProductCartAddFormDTO productCart= new ProductCartAddFormDTO();
         productCart.setImageUrl(productDetailDTO.getImageUrl());

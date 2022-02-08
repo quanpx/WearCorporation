@@ -14,15 +14,12 @@ import java.util.Set;
 @Service("sp02-account")
 public class AccountServiceSP02Impl implements AccountService {
 
-    public static Integer ID_COUNT = 3;
+    public static Integer ID_COUNT = 22;
 
     private final List<AccountDTO> ACCOUNT_LIST = Arrays.asList(
-            new AccountDTO(1,"sp02", "ltct.sp02@gmail.com", "sp02",null,
+            new AccountDTO(21,"sp02", "ltct.sp02@gmail.com", "sp02",null,
                     "ltct", "sp02", "HUST", "123456",
-                    "/images/avater.jpg", null, null, null, null, null),
-            new AccountDTO(2, "admin","admin@gmail.com", "admin",null,
-                    "Johanna", "Doe", "USA", "+880123123",
-                    "/images/avater.jpg", "Dec , 22 ,1991",null,null,null, null)
+                    "/images/avater.jpg", null, null, null, null, null)
     );
 
     private final Set<AccountDTO> ACCOUNT_SET = new HashSet<>(ACCOUNT_LIST);

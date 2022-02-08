@@ -85,12 +85,18 @@ public class AccountController {
             this.currentAccount.setEmail(accountDTO.getEmail());
             this.currentAccount.setFullname(accountDTO.getUsername());
             this.currentAccount.setPhone(accountDTO.getPhone());
-            this.currentAccount.setRole(systemManagementService.getRole(
-                    new UserRole(accountDTO.getId(), AccountRoleDTO.BUYER.getValue())));
-            if (this.currentAccount.getRole() == AccountRoleDTO.SALESMAN)
+
+            if (!this.moduleConfig.getAccountTeam().contains("sp02")) {
+                this.currentAccount.setRole(systemManagementService.getRole(
+                        new UserRole(accountDTO.getId(), AccountRoleDTO.BUYER.getValue())));
+                if (this.currentAccount.getRole() == AccountRoleDTO.SALESMAN)
+                    this.currentAccount.setAdmin(true);
+                if (this.currentAccount.getRole() == AccountRoleDTO.GUEST_ROLE)
+                    notice = "Failed";
+            } else {
+                this.currentAccount.setRole(AccountRoleDTO.IT_TECHNICIAN);
                 this.currentAccount.setAdmin(true);
-            if (this.currentAccount.getRole() == AccountRoleDTO.GUEST_ROLE)
-                notice = "Failed";
+            }
         }
 
         model.addAttribute("notice", notice);
