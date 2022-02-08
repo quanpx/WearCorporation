@@ -5,6 +5,7 @@ import com.example.demo.client_ui.dto.account.AccountDTO;
 import com.example.demo.client_ui.dto.account.AccountLoginFormDTO;
 import com.example.demo.client_ui.dto.account.AccountRegisterFormDTO;
 import com.example.demo.module.account.bean.AccountResponseBean;
+import com.example.demo.module.account.bean.sp14.AccountDTOBean;
 import com.example.demo.module.account.bean.sp14.SP14AccountBean;
 import com.example.demo.module.account.bean.sp14.SP14ErrorBean;
 import com.example.demo.module.account.proxies.AccountSP14WebServiceProxy;
@@ -80,8 +81,9 @@ public class AccountServiceSP14Impl implements AccountService {
             HttpHeaders headers = new HttpHeaders();
             headers.set("Accept", "application/json");
             HttpEntity<AccountRegisterFormDTO> form = new HttpEntity<>(formDTO, headers);
-            ResponseEntity<AccountDTO> resp = rest.exchange(url, HttpMethod.POST, form, AccountDTO.class);
-            return resp.getBody();
+
+            ResponseEntity<AccountDTOBean> resp = rest.exchange(url, HttpMethod.POST, form,AccountDTOBean.class );
+            return resp.getBody().getData();
         }catch (HttpStatusCodeException ex)
         {
             ObjectMapper objectMapper=new ObjectMapper();
