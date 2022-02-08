@@ -11,6 +11,7 @@ import com.example.demo.config.module.ModuleConfig;
 import com.example.demo.module.customer_care.service.CustomerCareService;
 import com.example.demo.module.inventory.service.InventoryService;
 import com.example.demo.module.product.service.ProductService;
+import com.example.demo.module.search_and_report.service.SearchAndReportService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -39,30 +40,42 @@ public class ShopController {
 
     private final Map<String, InventoryService> inventoryServiceMap;
 
+    private final Map<String, SearchAndReportService> searchAndReportServiceMap;
+
     @Autowired
     private ShopController(Map<String, ProductService> productServiceMap,
                            Map<String, CustomerCareService> customerCareServiceMap,
-                           Map<String, InventoryService> inventoryServiceMap) {
+                           Map<String, InventoryService> inventoryServiceMap,
+                           Map<String, SearchAndReportService> searchAndReportServiceMap) {
         this.productServiceMap = productServiceMap;
         this.customerCareServiceMap = customerCareServiceMap;
         this.inventoryServiceMap = inventoryServiceMap;
+        this.searchAndReportServiceMap = searchAndReportServiceMap;
     }
 
     @GetMapping
     public String getShopPage(@RequestParam(name = "category_id", required = false) Integer categoryId,
+                              @RequestParam(name = "keyword", required = false) String keyword,
                               Model model) {
         ProductService productService = this.productServiceMap.get(this.moduleConfig.getProductTeam());
-        HashMap<String, Object> params = new HashMap<>();
-        if (categoryId != null) params.put("category_id", categoryId);
-        List<ProductBriefDTO> productBriefDTOList = productService.getProductByFilter(params);
-        List<CategoryDTO> categoryDTOList = productService.getAllCategories();
+        SearchAndReportService searchAndReportService =
+                this.searchAndReportServiceMap.get(this.moduleConfig.getSearchAndReportTeam());
 
+        List<ProductBriefDTO> productBriefDTOList = null;
+        HashMap<String, Object> params = new HashMap<>();
+        if (keyword != null) {
+            productBriefDTOList = searchAndReportService.searchProduct(keyword);
+        } else {
+            if (categoryId != null) params.put("category_id", categoryId);
+            productBriefDTOList = productService.getProductByFilter(params);
+        }
         if (productBriefDTOList != null) {
             model.addAttribute("productList", productBriefDTOList);
-            model.addAttribute("isLogin", currentAccount.getRole() != AccountRoleDTO.GUEST_ROLE ? true : false);
+            model.addAttribute("isLogin", currentAccount.getRole() != AccountRoleDTO.GUEST_ROLE);
             model.addAttribute("userId", currentAccount.getId());
             model.addAttribute("teamNum", this.moduleConfig.getProductTeam().equals("sp17-product") ? 17 : 11);
         }
+        List<CategoryDTO> categoryDTOList = productService.getAllCategories();
         if (categoryDTOList != null)
             model.addAttribute("categories", categoryDTOList);
 
