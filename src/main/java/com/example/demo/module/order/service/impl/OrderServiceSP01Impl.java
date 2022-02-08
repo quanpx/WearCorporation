@@ -52,7 +52,6 @@ public class OrderServiceSP01Impl implements OrderService {
             if (orderBean.getUserId().equals(userId))
                 briefDTOList.add(this.orderMapping.beanToBriefDTO(orderBean));
 
-        System.out.println(briefDTOList);
         return briefDTOList;
     }
 
