@@ -8,6 +8,7 @@ import com.example.demo.module.account.bean.AccountResponseBean;
 import com.example.demo.module.account.bean.sp14.SP14AccountBean;
 
 import org.springframework.cloud.openfeign.FeignClient;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -20,8 +21,8 @@ public interface AccountSP14WebServiceProxy {
             @RequestBody AccountLoginFormDTO userLogin);
 
     @PostMapping("/register")
-    AccountResponseBean<SP14AccountBean> signup(@RequestHeader("Accept") String accept,
-            @RequestBody AccountRegisterFormDTO userRegister);
+    ResponseEntity<Map<String,String>> signup(@RequestHeader("Accept") String accept,
+                          @RequestBody AccountRegisterFormDTO userRegister);
 
     @GetMapping("/user")
     AccountResponseBean<SP14AccountBean> getUser(@RequestHeader("Authorization") String bearer);

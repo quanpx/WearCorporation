@@ -6,14 +6,24 @@ import com.example.demo.client_ui.dto.account.AccountLoginFormDTO;
 import com.example.demo.client_ui.dto.account.AccountRegisterFormDTO;
 import com.example.demo.module.account.bean.AccountResponseBean;
 import com.example.demo.module.account.bean.sp14.SP14AccountBean;
+import com.example.demo.module.account.bean.sp14.SP14ErrorBean;
 import com.example.demo.module.account.proxies.AccountSP14WebServiceProxy;
 import com.example.demo.module.account.service.AccountService;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpMethod;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.web.client.HttpStatusCodeException;
+import org.springframework.web.client.RestTemplate;
+
+import java.util.Map;
 
 @Service("sp14-account")
 @Slf4j
@@ -61,23 +71,30 @@ public class AccountServiceSP14Impl implements AccountService {
     }
 
     @Override
-    public AccountDTO signup(AccountRegisterFormDTO formDTO) {
+    public Object signup(AccountRegisterFormDTO formDTO) {
         try {
 
             formDTO.setRole("User");
-            AccountResponseBean<SP14AccountBean> responseBeanEntity = accountSP14WebServiceProxy.signup(ACCEPT_HEADER,
-                    formDTO);
+            RestTemplate rest = new RestTemplate();
+            String url = "http://ltct-customer.herokuapp.com/api/register";
+            HttpHeaders headers = new HttpHeaders();
+            headers.set("Accept", "application/json");
+            HttpEntity<AccountRegisterFormDTO> form = new HttpEntity<>(formDTO, headers);
+            ResponseEntity<AccountDTO> resp = rest.exchange(url, HttpMethod.POST, form, AccountDTO.class);
+            return resp.getBody();
+        }catch (HttpStatusCodeException ex)
+        {
+            ObjectMapper objectMapper=new ObjectMapper();
+           String errorResponse=ex.getResponseBodyAsString();
+            try {
+                SP14ErrorBean errorBean=objectMapper.readValue(errorResponse,SP14ErrorBean.class);
+                return errorBean;
+            } catch (JsonProcessingException e) {
+                log.error(e.getMessage(),e.getCause());
+                return ex.getResponseBodyAsString();
+            }
 
-            SP14AccountBean responseBean = responseBeanEntity.getData();
-            AccountDTO accountDTO = new AccountDTO();
-            accountDTO.setId(responseBean.getId());
-            accountDTO.setEmail(responseBean.getEmail());
-            accountDTO.setUsername(responseBean.getUsername());
-            accountDTO.setPhone(responseBean.getPhone());
-            return accountDTO;
-        } catch (Exception excpt) {
-            log.error(excpt.getMessage(), excpt.getCause());
-            return null;
         }
     }
+
 }

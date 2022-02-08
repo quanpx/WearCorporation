@@ -8,10 +8,13 @@ import com.example.demo.client_ui.dto.order.OrderDetailDTO;
 import com.example.demo.config.account.CurrentAccount;
 import com.example.demo.config.module.ModuleConfig;
 import com.example.demo.module.account.bean.UserRole;
+import com.example.demo.module.account.bean.sp14.SP14ErrorBean;
 import com.example.demo.module.account.service.AccountService;
 import com.example.demo.module.cart.service.CartService;
 import com.example.demo.module.order.service.OrderService;
 import com.example.demo.module.system_management.service.SystemManagementService;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.util.JSONPObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -21,6 +24,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -121,7 +125,23 @@ public class AccountController {
         AccountService accountService = this.accountServiceMap.get(this.moduleConfig.getAccountTeam());
         SystemManagementService systemManagementService = this.sysManagementServiceMap
                 .get(this.moduleConfig.getSysManagementTeam());
-        AccountDTO accountDTO = accountService.signup(formDTO);
+        AccountDTO accountDTO=null;
+        Object obj=accountService.signup(formDTO);
+        if(obj instanceof AccountDTO) {
+            accountDTO = (AccountDTO) obj;
+        }else if(obj instanceof SP14ErrorBean)
+        {
+            SP14ErrorBean sp14ErrorBean=(SP14ErrorBean) obj;
+            System.out.println(sp14ErrorBean);
+            model.addAttribute("message",sp14ErrorBean.getMessage());
+            List<String> errors=new ArrayList<>();
+            for (Map.Entry<String,List<String>> entry:sp14ErrorBean.getErrors().entrySet())
+            {
+                 errors.add(entry.getValue().get(0));
+            }
+            model.addAttribute("errors",errors);
+
+        }
 
         if (accountDTO == null) {
             model.addAttribute("notice", accountDTO);

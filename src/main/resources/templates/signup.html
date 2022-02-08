@@ -37,6 +37,13 @@ FACEBOOK: https://www.facebook.com/themefisher
             </a>
             <h2 class="text-center">Create Your Account</h2>
             <div class="alert" role="alert" th:text="${notice}" th:if="${notice}"></div>
+            <span class="alert" role="alert" th:text="${message}" th:if="${message}"></span><br/>
+
+              <th:block th:each="error:${errors}" th:unless="${#lists.isEmpty(errors)}" >
+                <th:block th:text="${error}"></th:block><br/>
+              </th:block>
+
+
             <form class="text-left clearfix" th:action="@{/account/signup}" method="post" th:object="${registerForm}">
               <div class="form-group">
                 <input type="text" th:field="*{firstName}" class="form-control" placeholder="First Name">

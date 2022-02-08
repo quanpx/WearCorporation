@@ -8,5 +8,5 @@ public interface AccountService {
 
     AccountDTO login(AccountLoginFormDTO formDTO);
 
-    AccountDTO signup(AccountRegisterFormDTO formDTO);
+    Object signup(AccountRegisterFormDTO formDTO);
 }
