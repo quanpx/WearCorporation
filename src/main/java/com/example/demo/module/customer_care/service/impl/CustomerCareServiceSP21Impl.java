@@ -5,6 +5,7 @@ import com.example.demo.client_ui.dto.product.ProductReviewDTO;
 import com.example.demo.config.account.CurrentAccount;
 import com.example.demo.module.customer_care.bean.sp21.SP21FeedBackBean;
 import com.example.demo.module.customer_care.bean.sp21.SP21ProductCommentBean;
+import com.example.demo.module.customer_care.bean.sp21.SP21ResponseCommentBean;
 import com.example.demo.module.customer_care.bean.sp21.SP21ResponseFeedbackBean;
 import com.example.demo.module.customer_care.mapping.CustomerCareMapping;
 import com.example.demo.module.customer_care.proxies.CustomerCareSP21WebServiceProxy;
@@ -72,4 +73,25 @@ public class CustomerCareServiceSP21Impl implements CustomerCareService {
             return null;
         }
     }
+
+    @Override
+    public String sendComment(ProductReviewDTO productReviewDTO) {
+        try
+        {
+            SP21ProductCommentBean sp21ProductCommentBean=this.customerCareMapping.commentDtoToBean(productReviewDTO);
+            sp21ProductCommentBean.setComment(productReviewDTO.getContent());
+            sp21ProductCommentBean.setProductId(productReviewDTO.getProductId());
+            sp21ProductCommentBean.setUserId(currentAccount.getId());
+            sp21ProductCommentBean.setPhoto("NULL");
+            SP21ResponseCommentBean sp21ResponseCommentBean = this.webServiceProxy.sendComment(sp21ProductCommentBean.getProductId(), sp21ProductCommentBean);
+            System.out.println();
+            return  sp21ResponseCommentBean.getSuccess();
+
+        }catch (Exception ex)
+        {
+            log.error(ex.getMessage(),ex.getCause());
+            return null;
+        }
+    }
+
 }

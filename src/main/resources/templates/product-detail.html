@@ -130,7 +130,7 @@ FACEBOOK: https://www.facebook.com/themefisher
 
 											<a class="pull-left" href="#!">
 												<img class="media-object comment-avatar"
-													th:src="${review.userImage}" alt="" width="50"
+													 th:src="@{/images/avater.jpg}" alt="" width="50"
 													height="50" />
 											</a>
 
@@ -150,7 +150,23 @@ FACEBOOK: https://www.facebook.com/themefisher
 										</li>
 									</ul>
 								</div>
+
+
 							</div>
+						</div>
+						<div class="contact-form col-md-6 " th:object="${comment}">
+							<form id="contact-form" th:method="post" th:action="@{|/shop/${product.id}/comment|}" th:object="${comment}" role="form">
+
+								<div class="form-group">
+									<textarea rows="6" placeholder="Content" class="form-control" th:field="*{content}" name="message" id="message"></textarea>
+								</div>
+
+
+								<div id="cf-submit">
+									<input type="submit" id="contact-submit" class="btn btn-transparent" value="Submit">
+								</div>
+
+							</form>
 						</div>
 					</div>
 				</div>
