@@ -75,7 +75,7 @@ public class AccountServiceSP14Impl implements AccountService {
     public Object signup(AccountRegisterFormDTO formDTO) {
         try {
 
-            formDTO.setRole("User");
+            formDTO.setRole("customer");
             RestTemplate rest = new RestTemplate();
             String url = "http://ltct-customer.herokuapp.com/api/register";
             HttpHeaders headers = new HttpHeaders();
